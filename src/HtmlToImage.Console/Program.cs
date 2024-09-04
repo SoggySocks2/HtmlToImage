@@ -5,6 +5,11 @@ if (string.IsNullOrWhiteSpace(sampleFile)) throw new ArgumentException("SampleFi
 
 var outputPath = System.Configuration.ConfigurationManager.AppSettings["OutputPath"];
 if (string.IsNullOrWhiteSpace(outputPath)) throw new ArgumentException("outputPath is not configured in AppSettings");
+if (!outputPath.EndsWith('\\')) outputPath += "\\";
+
+var outputFileExtention = System.Configuration.ConfigurationManager.AppSettings["OutputFileExtention"];
+if (string.IsNullOrWhiteSpace(outputFileExtention)) throw new ArgumentException("OutputFileExtention is not configured in AppSettings");
+outputFileExtention = outputFileExtention.Replace('.', ' ').Trim();
 
 var imageWidth = System.Configuration.ConfigurationManager.AppSettings["ImageWidth"];
 if (string.IsNullOrWhiteSpace(imageWidth)) throw new ArgumentException("ImageWidth is not configured in AppSettings");
@@ -17,10 +22,8 @@ if (!int.TryParse(imageHeight, out int height)) throw new ArgumentException("ima
 var htmlToImageProviderName = System.Configuration.ConfigurationManager.AppSettings["HtmlToImageProvider"];
 if (string.IsNullOrWhiteSpace(htmlToImageProviderName)) throw new ArgumentException("htmlToImageProviderName is not configured in AppSettings");
 
-string fileContent = await File.ReadAllTextAsync(sampleFile);
-
-if (!outputPath.EndsWith('\\')) outputPath += "\\";
-outputPath += $"{Guid.NewGuid()}.png";
-
 var imageGenerator = HtmlToImageGeneratorFactory.GetHtmlToImageGenerator(htmlToImageProviderName);
-await imageGenerator.GenerateImageAsync(fileContent, width, height, outputPath);
+
+var outputFileName = $"{Guid.NewGuid()}";
+string fileContent = await File.ReadAllTextAsync(sampleFile);
+await imageGenerator.GenerateImageAsync(fileContent, width, height, outputPath, outputFileName, outputFileExtention);

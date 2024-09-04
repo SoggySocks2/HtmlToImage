@@ -14,7 +14,7 @@ namespace HtmlToImage.Library;
 /// </summary>
 public class HtmlToImageGeneratorPuppeteer : IHtmlToImageGenerator
 {
-    public async Task GenerateImageAsync(string html, int width, int height, string targetPath)
+    public async Task GenerateImageAsync(string html, int width, int height, string targetPath, string targetFileName, string targetFileExtension)
     {
         var browserFetcher = new BrowserFetcher();
 
@@ -34,7 +34,7 @@ public class HtmlToImageGeneratorPuppeteer : IHtmlToImageGenerator
 
         await page.SetContentAsync(html);
 
-        await page.ScreenshotAsync(targetPath);
+        await page.ScreenshotAsync($"{targetPath}{targetFileName}.{targetFileExtension}");
         await browser.CloseAsync();
     }
 }

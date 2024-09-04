@@ -12,7 +12,7 @@ public static class ImageGenerator
     /// If you're running Puppeteer-Sharp in a Docker container on Linux, you'll need to ensure your Docker image includes these dependencies.
     /// </summary>
 
-    public static async Task GenerateImageAsync(string html, int width, int height, string targetPath)
+    public static async Task GenerateImageAsync(string html, int width, int height, string targetPath, string targetFileName)
     {
         var browserFetcher = new BrowserFetcher();
 
