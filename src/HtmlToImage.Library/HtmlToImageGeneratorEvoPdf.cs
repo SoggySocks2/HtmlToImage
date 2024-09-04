@@ -35,8 +35,9 @@ public class HtmlToImageGeneratorEvoPdf : IHtmlToImageGenerator
         {
             // leave empty to run in demo mode
             LicenseKey = "",
-            HtmlViewerHeight = height,
-            HtmlViewerWidth = width
+            PdfDocumentOptions = {
+                PdfPageSize = PdfPageSize.A9
+            }
         };
 
         // convert a HTML string to a memory buffer
