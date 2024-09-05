@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Aspose.HTML" Version="24.8.0" />
+    <PackageReference Include="Aspose.PDF" Version="24.8.0" />
     <PackageReference Include="EvoPdf.Client" Version="10.0.2" />
     <PackageReference Include="PuppeteerSharp" Version="19.0.2" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />

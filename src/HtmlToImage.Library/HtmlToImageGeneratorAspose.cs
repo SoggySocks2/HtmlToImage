@@ -3,15 +3,19 @@ using Aspose.Html.Converters;
 using Aspose.Html.Drawing;
 using Aspose.Html.Rendering.Image;
 using Aspose.Html.Saving;
+using Aspose.Pdf;
 
 namespace HtmlToImage.Library;
 
 /// <summary>
 /// https://products.aspose.com/html/net/
-/// ** Ensure to install the latest version of Aspose.HTML NuGet package **
 /// </summary>
 public class HtmlToImageGeneratorAspose : IHtmlToImageGenerator
 {
+    /// <summary>
+    /// Ensure to install the latest version of Aspose.HTML NuGet package
+    /// </summary>
+    /// <returns></returns>
     public async Task GenerateImageAsync(string html, int width, int height, string targetPath, string targetFileName, string targetFileExtension)
     {
         await Task.Delay(1);
@@ -33,5 +37,21 @@ public class HtmlToImageGeneratorAspose : IHtmlToImageGenerator
 
         var outputPath = $"{targetPath}{targetFileName}.{targetFileExtension}";
         Converter.ConvertHTML(document, options, outputPath);
+
+        GeneratePdf(html, targetPath, targetFileName);
+    }
+    /// <summary>
+    /// Ensure to install the latest version of Aspose.PDF NuGet package
+    /// </summary>
+    /// <returns></returns>
+    private static void GeneratePdf(string html, string targetPath, string targetFileName)
+    {
+        var pdfDocument = new Document();
+
+        var page = pdfDocument.Pages.Add();
+        page.Paragraphs.Add(new HtmlFragment(html));
+
+        var outputPath = $"{targetPath}{targetFileName}.pdf";
+        pdfDocument.Save(outputPath);
     }
 }
