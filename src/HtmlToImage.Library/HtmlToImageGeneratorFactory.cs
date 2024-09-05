@@ -9,6 +9,8 @@ public static class HtmlToImageGeneratorFactory
                 return new HtmlToImageGeneratorPuppeteer();
             case "EvoPdf":
                 return new HtmlToImageGeneratorEvoPdf();
+            case "Aspose":
+                return new HtmlToImageGeneratorAspose();
             case "Generic":
                 return new HtmlToImageGeneratorGeneric();
             default:
