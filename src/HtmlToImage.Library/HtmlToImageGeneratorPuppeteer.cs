@@ -36,5 +36,23 @@ public class HtmlToImageGeneratorPuppeteer : IHtmlToImageGenerator
 
         await page.ScreenshotAsync($"{targetPath}{targetFileName}.{targetFileExtension}");
         await browser.CloseAsync();
+
+        await GeneratePdf(html, targetPath, targetFileName);
+    }
+
+    private async Task GeneratePdf(string html, string targetPath, string targetFileName)
+    {
+        var browserFetcher = new BrowserFetcher();
+        await browserFetcher.DownloadAsync();
+
+        var browser = await Puppeteer.LaunchAsync(new LaunchOptions
+        {
+            Headless = true
+        });
+        var page = await browser.NewPageAsync();
+        await page.SetContentAsync(html);
+
+        var outputFile = $"{targetPath}{targetFileName}.pdf";
+        await page.PdfAsync(outputFile);
     }
 }
