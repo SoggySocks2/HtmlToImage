@@ -5,7 +5,7 @@ namespace HtmlToImage.Library;
 /// <summary>
 /// https://www.evopdf.com/netcore-html-to-pdf-converter.aspx
 /// Before using this library, you need to install the EVO PDF Server which can be downloaded from https://www.evopdf.com/netcore-html-to-pdf-converter.aspx
-/// ** Ensure to install the latest version of EvoPdf.Client NuGet package **
+/// Ensure to install the latest version of EvoPdf.Client NuGet package
 /// </summary>
 public class HtmlToImageGeneratorEvoPdf : IHtmlToImageGenerator
 {
@@ -57,5 +57,21 @@ public class HtmlToImageGeneratorEvoPdf : IHtmlToImageGenerator
         };
 
         pdfToImageConverter.ConvertPdfPagesToImageFile(htmlToPdfBuffer, targetPath, targetFileName);
+        GeneratePdf(html, targetPath, targetFileName);
+    }
+
+    private void GeneratePdf(string html, string targetPath, string targetFileName)
+    {
+        var htmlToPdfConverter = new HtmlToPdfConverter(_evoPdfServerIpAddress, _evoPdfServerPort)
+        {
+            // leave empty to run in demo mode
+            LicenseKey = "",
+            PdfDocumentOptions = {
+                PdfPageSize = PdfPageSize.A4
+            }
+        };
+
+        var outputFile = $"{targetPath}{targetFileName}.pdf";
+        htmlToPdfConverter.ConvertHtmlToFile(html, null, outputFile);
     }
 }
