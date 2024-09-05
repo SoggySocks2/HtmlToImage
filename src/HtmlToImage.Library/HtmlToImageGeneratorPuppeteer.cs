@@ -40,7 +40,7 @@ public class HtmlToImageGeneratorPuppeteer : IHtmlToImageGenerator
         await GeneratePdf(html, targetPath, targetFileName);
     }
 
-    private async Task GeneratePdf(string html, string targetPath, string targetFileName)
+    private static async Task GeneratePdf(string html, string targetPath, string targetFileName)
     {
         var browserFetcher = new BrowserFetcher();
         await browserFetcher.DownloadAsync();
