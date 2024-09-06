@@ -22,6 +22,13 @@ if (!int.TryParse(imageHeight, out int height)) throw new ArgumentException("ima
 var htmlToImageProviderName = System.Configuration.ConfigurationManager.AppSettings["HtmlToImageProvider"];
 if (string.IsNullOrWhiteSpace(htmlToImageProviderName)) throw new ArgumentException("htmlToImageProviderName is not configured in AppSettings");
 
+if (htmlToImageProviderName.Equals("Test", StringComparison.OrdinalIgnoreCase))
+{
+    Console.WriteLine("Test provider is selected. No image will be generated.");
+    Console.WriteLine("Press any key to exit.");
+    return;
+}
+
 var imageGenerator = HtmlToImageGeneratorFactory.GetHtmlToImageGenerator(htmlToImageProviderName);
 
 var outputFileName = $"{Guid.NewGuid()}";
