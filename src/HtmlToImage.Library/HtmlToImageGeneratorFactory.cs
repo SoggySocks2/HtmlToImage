@@ -11,6 +11,8 @@ public static class HtmlToImageGeneratorFactory
                 return new HtmlToImageGeneratorEvoPdf();
             case "Aspose":
                 return new HtmlToImageGeneratorAspose();
+            case "SelectPdf":
+                return new HtmlToImageGeneratorSelectPdf();
             case "Generic":
                 return new HtmlToImageGeneratorGeneric();
             default:
